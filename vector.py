@@ -22,3 +22,6 @@ def save_vector():
     with open('./data/vectors.pickle', 'wb') as handle:
         pickle.dump(df, handle,
                     protocol=pickle.HIGHEST_PROTOCOL)
+
+
+print("Vectorization successfully complete.")

@@ -84,22 +84,32 @@ class Classify():
         global exception_val
         global e
         if type(self.index) == list and len(self.index) > 0:
-            # get the max match score for the exception
-            _i, _f = sorted(self.index, key=lambda x: x[1], reverse=True)[0]
 
-            # generating a random ID to store the exception in database
-            id = int(random.random()*100000000)
-            while id in e.exception.ID.values:
-                id = int(random.random()*100000000)
-
-            # saving the exception into the database
-            e.exception = e.save_exceptions(
-                {'ID': id, 'Exception': self.e, 'Category': e.exception.loc[_i, 'Category']})
-
-            print("Created Exception with ID : ", id)
-
-            # make the exception array index list global to allow other functions to access it across code
             exception_val = e.exception.Exception.values.tolist()
+
+            try:
+                _in = exception_val.index(self.e)
+                print("Similar error already exists with Exception ID : ",
+                      e.exception.loc[_in, "ID"], ". Duplication avoided.")
+
+            except:
+                # get the max match score for the exception
+                _i, _f = sorted(
+                    self.index, key=lambda x: x[1], reverse=True)[0]
+
+                # generating a random ID to store the exception in database
+                id = int(random.random()*100000000)
+                while id in e.exception.ID.values:
+                    id = int(random.random()*100000000)
+
+                # saving the exception into the database
+                e.exception = e.save_exceptions(
+                    {'ID': id, 'Exception': self.e, 'Category': e.exception.loc[_i, 'Category']})
+
+                print("Created Exception with ID : ", id)
+
+                # make the exception array index list global to allow other functions to access it across code
+                exception_val = e.exception.Exception.values.tolist()
 
         elif type(self.index) == int:
             # show error ID for already existing Exception
