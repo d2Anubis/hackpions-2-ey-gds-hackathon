@@ -1,3 +1,5 @@
+from scipy import spatial
+import pickle
 import importlib
 from utils import load_exceptions
 from utils.fuzzy import get_fuzzy_score
@@ -16,6 +18,10 @@ exception_val = e.exception.Exception.values.tolist()
 sys_exc_val = e.system.Exception.values.tolist()
 bus_exc_val = e.business.Exception.values.tolist()
 _l = len(exception_val)
+
+# load the exception vectos from pickle file
+with open('./data/vectors.pickle', 'rb') as handle:
+    b = pickle.load(handle)
 
 
 class Classify():
@@ -46,6 +52,7 @@ class Classify():
                     return self.index
 
             self.index = []
+            global _l
             for i in range(_l):
                 fuzz_score = get_fuzzy_score(
                     self.e,
@@ -53,6 +60,24 @@ class Classify():
 
                 if fuzz_score >= 0.85:
                     self.index.append([i, fuzz_score])
+
+            # ML model implement here in case the above didn't work
+            if type(self.index == list) and len(self.index) == 0:
+                print("Using ML model to find similar Exceptions from database.")
+                global b
+                self.index = []
+
+                vectorizer.bert([self.e])
+                vectors = vectorizer.vectors
+                vectors = vectors.reshape((768,))
+
+                _m = len(b['Exception'])
+
+                for i in range(_m):
+                    dist = spatial.distance.cosine(vectors, b['Exception'][i])
+                    if dist > 0.5:
+                        self.index.append([i, dist])
+
             return('Error exists at index', self.index)
 
     def update_to_database(self, tag="", kind=""):
@@ -104,9 +129,8 @@ class Classify():
                 # make the exception array index list global to allow other functions to access it across code
                 exception_val = e.exception.Exception.values.tolist()
 
-        # condition for loading ML models and predict for cases where its not possible to use fuzzy logic
-        elif type(self.index == list) and len(self.index) == 0:
-            print("ML model loaded up")
+        else:
+            print("Something messed up bad.")
 
 
 class Update_tags:
