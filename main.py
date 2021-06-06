@@ -2,6 +2,8 @@ import importlib
 from utils import load_exceptions
 from utils.fuzzy import get_fuzzy_score
 import random
+from sent2vec.vectorizer import Vectorizer
+vectorizer = Vectorizer()
 
 importlib.reload(load_exceptions)
 
