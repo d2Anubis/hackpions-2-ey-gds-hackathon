@@ -172,8 +172,10 @@ class Update_tags:
             if self.tag == 'System Exception':
                 e.system = e.save_sys_exceptions({'Exception': self.error})
                 sys_exc_val = e.system.Exception.values.tolist()
+                print("Exception processed by system function.")
             else:
                 e.business = e.save_bus_exceptions({'Exception': self.error})
                 bus_exc_val = e.business.Exception.values.tolist()
+                print("Exception processed by business function.")
 
             print("Exception added to database")
