@@ -53,6 +53,8 @@ def query():
 
     if submitted1:
         f = find(err, save_to_database)
+        global df
+        df = pd.read_excel("./data/exceptions.xlsx")
 
         if _l != None:
 
