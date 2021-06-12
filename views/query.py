@@ -68,6 +68,8 @@ def query():
 
             # match using fuzzy details
             else:
+                st.info("Classified as : **" +
+                        str(df.loc[f[1][0], 'Category'])+"**")
                 for i in f[1]:
                     # submit button
                     with st.form(str(i)):
