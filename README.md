@@ -8,21 +8,23 @@ The Intelligent Automation team manually processes a large volume of exception d
 
 You need to build an intelligent solution, to auto label exceptions as they occur.
 
-**Deliverables**
+**Proposed Solution**
 
-Propose and design a machine learning algorithm, that will carry out the following tasks:
+An AI operations model which will autolabel the exceptions and provide the solution without any user intervention. Following are the features of the proposed solution:
+- Categorizing exceptions
+- Finding similar occurring exceptions
+- Updating database with incoming exceptions with unique Exception ID
+- Exception Validation to avoid duplication in database
 
-- Use training data and keywords across categories, for each of the exceptions, as given below:
-- Create an input excel file, with a list of exceptions.
-- Business exception
-- System exception
-- Other
-- Generate an output text file, with the respective exception tags.
-- Create a self-learning model to recognize patterns, determine correlation with other input data set features, learn from data and tag exceptions as they come.
+Categorizing the exceptions via two ways:
+- Direct Lookup Table
+- Using Fuzzy Logic
+- Classification using Word vectors (BERT) for exceptions that are tough to classify
+
 
 **Submission**
 
-An AI assistant that identifies exceptions in real time.
+A UI based exception tagger with a API backend that can be utilised separately
 
 **How to run the app**
 - download the complete repo
