@@ -23,3 +23,14 @@ Propose and design a machine learning algorithm, that will carry out the followi
 **Submission**
 
 An AI assistant that identifies exceptions in real time.
+
+**How to run the app**
+- download the complete repo
+- open anaconda command prompt and run ```streamlit run app.py```
+
+**Python package Requirements**
+- python >= 3
+- pandas
+- bert
+- streamlit
+- fuzzywuzzy
