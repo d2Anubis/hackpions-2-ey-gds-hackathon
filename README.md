@@ -6,7 +6,7 @@
 
 The Intelligent Automation team manually processes a large volume of exception data. The manual process includes examining the exception reasons and categorizing them broadly into business or technical issues, which is time consuming and increases turnaround time. 
 
-You need to build an intelligent solution, to auto label exceptions as they occur.
+We have build an intelligent solution, to auto label exceptions as they occur.
 
 **Proposed Solution**
 
